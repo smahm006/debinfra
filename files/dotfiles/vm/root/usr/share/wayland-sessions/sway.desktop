@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Sway
+Comment=An i3-compatible Wayland compositor (software renderer for VMs)
+Exec=env WLR_RENDERER=pixman sway
+Type=Application

@@ -1,0 +1,21 @@
+### -- Core --------------------------------------------------------------------
+xwayland disable
+set $mod Mod4
+set $scripts ~/.config/sway/scripts
+
+### -- Output ------------------------------------------------------------------
+set $laptop eDP-1
+output $laptop bg ~/media/images/wallpaper/currentwallpaper.jpg fill
+
+### -- Workspace ---------------------------------------------------------------
+workspace_layout default
+workspace_auto_back_and_forth no
+
+### -- Bar ---------------------------------------------------------------------
+bar {
+  swaybar_command waybar
+  position bottom
+}
+
+### -- Includes ----------------------------------------------------------------
+include ~/.config/sway/config.d/*.conf

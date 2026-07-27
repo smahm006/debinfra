@@ -1,0 +1,96 @@
+/* swaync theme matching waybar/rofi: translucent black, whitesmoke, muted #6E6A86, accent #cba6f7 */
+@define-color bg     rgba(0, 0, 0, 0.85);
+@define-color fg     whitesmoke;
+@define-color muted  #6E6A86;
+@define-color accent #cba6f7;
+
+* {
+  font-family: "Maple Mono Normal", "Symbols Nerd Font";
+  font-size: 13px;
+}
+
+.control-center {
+  background: @bg;
+  border: 1px solid @fg;
+  border-radius: 15px;
+  padding: 8px;
+  color: @fg;
+}
+
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.notification {
+  background: transparent;
+  border-radius: 10px;
+  margin: 4px;
+  padding: 0;
+}
+
+.notification-content {
+  background: @bg;
+  border: 1px solid @muted;
+  border-radius: 10px;
+  padding: 8px;
+  color: @fg;
+}
+
+.notification-default-action:hover .notification-content {
+  border-color: @accent;
+}
+
+.close-button {
+  background: transparent;
+  color: @muted;
+  border-radius: 8px;
+}
+.close-button:hover {
+  color: @fg;
+}
+
+.summary {
+  color: @fg;
+  font-weight: bold;
+}
+.time {
+  color: @muted;
+}
+.body {
+  color: @fg;
+}
+
+.widget-title {
+  color: @fg;
+  margin: 4px;
+}
+.widget-title > button {
+  background: transparent;
+  border: 1px solid @muted;
+  border-radius: 10px;
+  color: @muted;
+}
+.widget-title > button:hover {
+  border-color: @accent;
+  color: @fg;
+}
+
+.widget-dnd {
+  color: @fg;
+  margin: 4px;
+}
+.widget-dnd > switch {
+  background: @muted;
+  border-radius: 10px;
+}
+.widget-dnd > switch:checked {
+  background: @accent;
+}
+
+.widget-mpris .widget-mpris-player {
+  background: transparent;
+  border-radius: 10px;
+  color: @fg;
+}

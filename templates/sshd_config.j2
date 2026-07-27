@@ -1,0 +1,62 @@
+# Managed by Ansible debstrap — do not edit manually
+# Template: roles/hardening/templates/sshd_config.j2
+# Sensitive values sourced from: inventory/host_vars/{{ inventory_hostname }}/secrets.sops.yaml
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+########## Binding ##########
+Port {{ server_hosts[inventory_hostname].port }}
+AddressFamily any
+
+########## Features ##########
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+
+PermitUserEnvironment no
+AllowAgentForwarding no
+Banner /etc/ssh/banner
+
+# K3S dashboard, InvenTree, etc
+AllowTcpForwarding yes
+AllowStreamLocalForwarding no
+GatewayPorts no
+PermitTunnel no
+PrintMotd no
+X11Forwarding no
+
+########## Authentication ##########
+AllowUsers smahm
+
+AuthenticationMethods publickey
+PubkeyAuthentication yes
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+UsePAM no
+
+MaxAuthTries 3
+PermitEmptyPasswords no
+PermitRootLogin no
+
+########## Cryptography ##########
+# Terrapin-mitigated: no AES-CTR or Chacha20-Poly1305
+Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
+HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group18-sha512,diffie-hellman-group16-sha512
+
+# Ed25519 only — no ECDSA, no RSA host key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+########## Connection ##########
+ClientAliveCountMax 2
+ClientAliveInterval 300
+Compression no
+IgnoreRhosts yes
+MaxSessions 2
+Subsystem sftp internal-sftp
+TCPKeepAlive no
+UseDNS no
+LoginGraceTime 30
+LogLevel VERBOSE

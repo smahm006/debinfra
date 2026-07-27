@@ -1,0 +1,8 @@
+[theme]
+name = "foot"
+
+keymap_mode = "emacs"
+
+[keymap.emacs]
+"ctrl-k" = "clear-line"
+enter_accept = true

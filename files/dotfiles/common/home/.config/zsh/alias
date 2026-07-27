@@ -1,0 +1,52 @@
+# System
+alias sudo="sudo "
+alias apt="sudo apt"
+alias rm="echo 'Use /bin/rm if serious, or trash (tr).'; true"
+alias pls='sudo "$BASH" -c "$(history -p !!)"'
+alias ps="ps aux"
+alias free="free -m"
+alias more="less"
+alias cp="cp -i"
+alias mv="mv -i"
+alias mkdir="mkdir -p"
+alias tr="trash"
+alias hh="atuin search -i"
+alias ssh="TERM=xterm-color ssh"
+alias octal="stat -c '%a'"
+
+# Listing
+alias ls="ls --color=auto"
+alias dir="dir --color=auto"
+alias l="ls"
+alias la="ls -A"
+alias ll="ls -l --human-readable --group-directories-first --classify --time-style=long-iso"
+alias lla="ls -la --human-readable --group-directories-first --classify --time-style=long-iso"
+alias latest='ls -t | head -n1'
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
+
+# Permissions
+alias xec="chmod +x"
+alias own="sudo chown -R $USER"
+
+# Editor
+alias vi="vim"
+alias em="emacsclient -t"
+alias eg="emacsclient -c -n"
+
+# Network
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget-hsts"
+
+# GPG
+alias switch-keys="gpg-connect-agent 'scd serialno' 'learn --force' /bye"
+alias gpg-restart="gpg-connect-agent killagent /bye && gpg-connect-agent /bye"
+
+# Maven
+alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
+
+# Version control
+alias diff='diff --color'
+
+# Python
+alias venv="source .venv/bin/activate"

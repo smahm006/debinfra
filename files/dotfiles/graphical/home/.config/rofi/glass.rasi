@@ -1,0 +1,110 @@
+/* Glassy dark theme: translucent near-black, soft border, lavender accent. */
+
+* {
+    bg:      rgba(10, 10, 16, 75%);
+    bg-line: rgba(255, 255, 255, 18%);
+    bg-sel:  rgba(255, 255, 255, 10%);
+    fg:      #F5F5F5;
+    muted:   #8B87A6;
+    accent:  #cba6f7;
+
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    transparency: "real";
+    background-color: @bg;
+    location: center;
+    width: 42%;
+    border: 1px;
+    border-color: @bg-line;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 16px;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    spacing: 12px;
+    padding: 8px 12px;
+    border: 0 0 1px 0;
+    border-color: @bg-line;
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder: "search";
+    placeholder-color: @muted;
+    cursor: text;
+}
+
+message {
+    padding: 8px;
+    border-radius: 10px;
+    background-color: @bg-sel;
+}
+
+textbox {
+    text-color: @fg;
+}
+
+listview {
+    lines: 8;
+    fixed-height: false;
+    scrollbar: false;
+    cycle: true;
+    spacing: 2px;
+}
+
+element {
+    padding: 6px 10px;
+    spacing: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+element-icon {
+    size: 1.2em;
+}
+
+element-text {
+    text-color: inherit;
+}
+
+element normal.normal, element alternate.normal {
+    text-color: @muted;
+}
+
+element normal.active, element alternate.active {
+    text-color: @accent;
+}
+
+element normal.urgent, element alternate.urgent {
+    text-color: #f53c3c;
+}
+
+element selected.normal, element selected.active {
+    background-color: @bg-sel;
+    text-color: @fg;
+}
+
+element selected.urgent {
+    background-color: @bg-sel;
+    text-color: #f53c3c;
+}
+
+error-message {
+    background-color: @bg;
+    border: 1px;
+    border-color: @bg-line;
+    border-radius: 16px;
+    padding: 24px;
+}

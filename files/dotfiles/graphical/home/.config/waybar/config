@@ -1,0 +1,26 @@
+{
+  "include": "~/.config/waybar/modules",
+  "layer": "bottom",
+  "position": "bottom",
+  "reload_style_on_change": true,
+
+  "modules-left": [
+    "custom/menu",
+    "battery",
+    "cpu",
+    "memory",
+    "temperature"
+  ],
+
+  "modules-center": ["sway/workspaces"],
+
+  "modules-right": [
+    "pulseaudio#microphone",
+    "pulseaudio",
+    "bluetooth",
+    "network",
+    "tray",
+    "clock",
+    "custom/swaync"
+  ]
+}

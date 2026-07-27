@@ -1,0 +1,29 @@
+set database sqlite
+set selection-clipboard clipboard
+set adjust-open "best-fit"
+set pages-per-row 1
+set scroll-page-aware "true"
+set scroll-full-overlap 0.01
+set scroll-step 100
+set vertical-center true
+set zoom-min 10
+set guioptions "s"
+set font "monospace 12"
+
+map [normal] <C-b>  scroll left
+map [normal] n      scroll down
+map [normal] p      scroll up
+map [normal] <C-f>  scroll right
+map [normal] <C-g>  abort
+map [normal] <A-\<> goto top
+map [normal] <A-\>> goto bottom
+map [normal] a      adjust_window best-fit
+map [normal] s      adjust_window width
+map [normal] \,     navigate next
+map [normal] \.     navigate previous
+map [normal] <C-s>  search forward
+map [normal] <C-r>  search backward
+map [normal] <C-i>  toggle_index
+map [normal] <C-q>  quit
+map [normal] +      zoom in
+map [normal] -      zoom out

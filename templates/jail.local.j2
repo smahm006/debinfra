@@ -1,0 +1,46 @@
+# Managed by Ansible debstrap — do not edit manually
+
+[DEFAULT]
+bantime  = 3600
+findtime = 600
+maxretry = 3
+
+banaction          = nftables-multiport
+banaction_allports = nftables-allports
+chain              = input
+
+ignoreip = 127.0.0.1/8 ::1
+           {{ server_gateway }}/24
+
+destemail = soh.mahmood@fastmail.com
+sender    = fail2ban@sm-server
+action    = %(action_mwl)s
+
+[sshd]
+enabled  = true
+port     = {{ server_hosts[inventory_hostname].port }}
+logpath  = %(sshd_log)s
+backend  = %(sshd_backend)s
+maxretry = 3
+bantime  = 7200
+findtime = 600
+
+[nginx-http-auth]
+enabled  = true
+port     = http,https
+logpath  = /var/log/nginx/error.log
+maxretry = 5
+
+[nginx-limit-req]
+enabled  = true
+port     = http,https
+logpath  = /var/log/nginx/error.log
+maxretry = 10
+findtime = 120
+bantime  = 600
+
+[nginx-botsearch]
+enabled  = true
+port     = http,https
+logpath  = /var/log/nginx/access.log
+maxretry = 2

@@ -1,0 +1,4 @@
+# List of allowed ssh keys. Only keys present in this file are used
+# in the SSH protocol.  Comment lines and empty lines are ignored.
+# Format: <keygrip> [<ttl>] [<flags>]
+373378E1A2AF7842AE6F4C299B3AC01DF536E839

@@ -1,0 +1,10 @@
+[colors]
+Base = "#ffffff"
+Title = "#00ffff"
+Guidance = "#5555ff"
+Important = "#fda50f"
+AlertInfo = "#00ff00"
+AlertWarn = "#ffcc66"
+AlertError = "#ff0000"
+Annotation = "#888888"
+Muted = "#666666"

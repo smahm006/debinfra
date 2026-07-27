@@ -1,0 +1,18 @@
+import atexit, os, sys, readline
+from pathlib import Path
+
+try:
+    readline.parse_and_bind("tab: complete")
+except ImportError:
+    pass
+
+if hasattr(sys, '__interactivehook__'):
+    del sys.__interactivehook__
+
+histfile = Path(os.getenv("XDG_STATE_HOME", Path.home() / ".local/state")) / "python/history"
+histfile.parent.mkdir(parents=True, exist_ok=True)
+histfile.touch(exist_ok=True)
+
+readline.read_history_file(histfile)
+readline.set_history_length(5000)
+atexit.register(readline.write_history_file, histfile)

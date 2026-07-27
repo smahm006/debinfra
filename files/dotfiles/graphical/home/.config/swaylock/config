@@ -1,0 +1,6 @@
+daemonize
+show-failed-attempts
+ignore-empty-password
+color=00000000
+indicator-radius=75
+indicator-thickness=10

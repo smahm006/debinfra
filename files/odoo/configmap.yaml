@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: odoo-conf
+  namespace: odoo
+data:
+  odoo.conf: |
+    [options]
+    db_host = odoo-db
+    db_port = 5432
+    db_name = odoo
+    data_dir = /var/lib/odoo
+    proxy_mode = False
+    ; admin_passwd (db manager master password) is injected via ODOO_ADMIN_PASSWD
+    ; by the entrypoint wrapper in server.yaml

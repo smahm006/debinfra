@@ -1,0 +1,48 @@
+# Managed by Ansible debstrap — do not edit manually
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0; policy drop;
+
+        # Allow loopback
+        iif lo accept
+
+        # Allow established/related
+        ct state established,related accept
+
+        # Allow k3s pod traffic (not from external interface)
+        iif != eno2 ip daddr 10.42.0.0/16 accept
+
+        # Allow ICMP/ping
+        ip protocol icmp accept
+        ip6 nexthdr icmpv6 accept
+
+        # Allow SSH
+        tcp dport {{ server_hosts[inventory_hostname].port }} accept
+
+        # Allow HTTP/HTTPS (for later, Nginx ingress)
+        tcp dport { 80, 443 } accept
+
+        # Allow DNS (for later, AdGuard Home)
+        tcp dport 53 accept
+        udp dport 53 accept
+
+        # Allow K3S API (local network only)
+        tcp dport 6443 accept
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+
+        # Allow k3s pod networking
+        ip saddr 10.42.0.0/16 accept
+        ip daddr 10.42.0.0/16 accept
+    }
+
+    chain output {
+        type filter hook output priority 0; policy accept;
+    }
+}

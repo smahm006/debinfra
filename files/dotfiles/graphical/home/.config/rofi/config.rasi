@@ -1,0 +1,15 @@
+configuration {
+    modes: "drun,run";
+    font: "Maple Mono Normal 14";
+    show-icons: true;
+    icon-theme: "Materia-Blackout-Icons";
+    terminal: "foot";
+    drun-display-format: "{name}";
+    display-drun: "󱓞";
+    display-run: "";
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+}
+
+@theme "glass"

@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+case "$1" in
+  lock)
+    TEMP_FILE=$(mktemp --suffix=.png)
+    trap 'rm -f "$TEMP_FILE"' EXIT
+    grim -t png - | ffmpeg -loglevel quiet -y -i - -vf "gblur=sigma=10" "$TEMP_FILE"
+    # swaylock daemonizes; wait for the lock to be up before the trap removes the image
+    if chayang; then
+      swaylock -i "$TEMP_FILE"
+      sleep 1
+    fi
+    ;;
+  suspend)   swaylock && systemctl suspend   ;;
+  hibernate) swaylock && systemctl hibernate ;;
+  reboot)    systemctl reboot                ;;
+  shutdown)  systemctl poweroff              ;;
+  logout)    sway exit                       ;;
+  *)
+    echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+    exit 2
+    ;;
+esac

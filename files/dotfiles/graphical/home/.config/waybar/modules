@@ -1,0 +1,143 @@
+{
+  "sway/workspaces": {
+    "all-outputs": false,
+    "format": "{icon}",
+    "sort-by-number": true,
+    "on-click": "activate",
+    "disable-scroll": false,
+    "format-icons": {
+      "1": "󰲠",
+      "2": "󰲢",
+      "3": "󰲤",
+      "4": "󰲦",
+      "5": "󰲨",
+      "6": "󰲪",
+      "7": "󰲬",
+      "8": "󰲮",
+      "9": "󰲰",
+      "urgent": "󰀦",
+      "default": "󰝥"
+    }
+  },
+
+  "backlight": {
+    "format": "{icon}",
+    "format-icons": ["","","","","","","","","","","","","","",""],
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "battery": {
+    "full-at": 100,
+    "states": { "good": 95, "warning": 30, "critical": 15 },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󱘖 {capacity}%",
+    "format-full": "{icon}",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"]
+  },
+
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂳",
+    "format-connected": "󰂱",
+    "on-click": "blueman-manager"
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:%H:%M}",
+    "format-alt": " {:%H:%M   %Y, %d %B, %A}"
+  },
+
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "interval": 1,
+    "on-click": "foot --title btop sh -c 'btop'"
+  },
+
+  "memory": {
+    "interval": 10,
+    "format": "󰾆 {percentage}%",
+    "format-alt": "󰾆 {used:0.1f}G"
+  },
+
+  "disk": {
+    "interval": 30,
+    "path": "/",
+    "format": "{percentage_used}% 󰋊"
+  },
+
+  "network": {
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰌘",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+    "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
+    "on-click": "foot --title nmtui bash -c 'nmtui'"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰖁",
+    "format-icons": { "default": ["","","󰕾",""] },
+    "scroll-step": 5.0,
+    "on-click": "pavucontrol -t 3",
+    "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click-middle": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-click": "pavucontrol -t 4",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%"
+  },
+
+  "temperature": {
+    "interval": 10,
+    "critical-threshold": 82,
+    "format-critical": "{icon} {temperatureC}°C",
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["󰈸"]
+  },
+
+  "tray": {
+    "icon-size": 15,
+    "spacing": 8
+  },
+
+  "custom/menu": {
+    "format": "{}",
+    "exec": "echo ; echo 󱓟 app launcher",
+    "interval": 86400,
+    "tooltip": true,
+    "on-click": "rofi -show drun -run-command 'swaymsg exec -- {cmd}'"
+  },
+
+  "custom/swaync": {
+    "tooltip": true,
+    "format": "{icon} {}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "󱅫",
+      "dnd-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+  "custom/separator#dot-line": { "format": "", "interval": "once", "tooltip": false },
+  "custom/separator#line":     { "format": "|", "interval": "once", "tooltip": false },
+  "custom/separator#blank":    { "format": " ", "interval": "once", "tooltip": false }
+}

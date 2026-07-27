@@ -1,0 +1,88 @@
+[core]
+  pager = less
+
+[protocol]
+  version = 2
+
+[user]
+  name       = Sohaib Mahmood
+  email      = soh.mahmood@fastmail.com
+  signingKey = D5725EEFAB586861
+
+[checkout]
+  defaultRemote = origin
+
+[commit]
+  gpgSign = true
+
+[tag]
+  gpgSign = true
+
+[pager]
+  diff   = less
+  show   = less
+  log    = less
+  branch = less -FX
+
+[color]
+  ui = auto
+
+[color "diff"]
+  meta      = yellow
+  frag      = magenta bold
+  commit    = yellow bold
+  old       = red bold
+  new       = green bold
+  whitespace= red reverse
+
+[diff]
+  algorithm    = histogram
+  renames      = copies
+  mnemonicprefix = true
+  renameLimit  = 10000
+
+[difftool]
+  prompt = false
+
+[fetch]
+  prune = true
+
+[init]
+  defaultBranch = main
+
+[log]
+  abbrevCommit = true
+  decorate     = true
+
+[merge]
+  stat = true
+
+[mergetool]
+  prompt     = false
+  keepBackup = false
+
+[pull]
+  rebase = true
+
+[rebase]
+  autosquash = true
+  stat       = true
+
+[stash]
+  showPatch = true
+  showStat  = true
+
+[submodule]
+  fetchJobs = 0
+
+[filter "lfs"]
+  clean    = git-lfs clean -- %f
+  smudge   = git-lfs smudge -- %f
+  process  = git-lfs filter-process
+  required = true
+
+[branch "main"]
+  pushRemote = origin
+
+[remote]
+  pushDefault = origin

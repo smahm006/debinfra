@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo-db
+  namespace: odoo
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: odoo-db
+  template:
+    metadata:
+      labels:
+        app: odoo-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:17
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-secrets
+                  key: ODOO_DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-secrets
+                  key: ODOO_DB_PASSWORD
+            # Odoo manages its own databases; POSTGRES_DB must stay 'postgres'
+            - name: POSTGRES_DB
+              value: postgres
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: db-data
+          hostPath:
+            path: /opt/odoo/db
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: odoo-db
+  namespace: odoo
+spec:
+  selector:
+    app: odoo-db
+  ports:
+    - port: 5432
+      targetPort: 5432

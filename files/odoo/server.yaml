@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo
+  namespace: odoo
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      securityContext:
+        fsGroup: 101
+      containers:
+        - name: odoo
+          image: odoo:18
+          command: ["/bin/bash", "-c"]
+          # inject the db-manager master password from the secret into odoo.conf
+          args:
+            - |
+              cp /etc/odoo-conf/odoo.conf /tmp/odoo.conf
+              echo "admin_passwd = ${ODOO_ADMIN_PASSWD}" >> /tmp/odoo.conf
+              exec /entrypoint.sh odoo -c /tmp/odoo.conf
+          env:
+            - name: HOST
+              value: odoo-db
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-secrets
+                  key: ODOO_DB_USER
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-secrets
+                  key: ODOO_DB_PASSWORD
+            - name: ODOO_ADMIN_PASSWD
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-secrets
+                  key: ODOO_ADMIN_PASSWD
+          ports:
+            - containerPort: 8069
+              hostPort: 80
+            - containerPort: 8072
+              hostPort: 8072
+          volumeMounts:
+            - name: odoo-data
+              mountPath: /var/lib/odoo
+            - name: odoo-conf
+              mountPath: /etc/odoo-conf
+      volumes:
+        - name: odoo-data
+          hostPath:
+            path: /opt/odoo/data
+            type: Directory
+        - name: odoo-conf
+          configMap:
+            name: odoo-conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: odoo
+  namespace: odoo
+spec:
+  selector:
+    app: odoo
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8069
+    - name: websocket
+      port: 8072
+      targetPort: 8072

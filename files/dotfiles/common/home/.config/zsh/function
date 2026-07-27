@@ -1,0 +1,53 @@
+mvcd()  { mv -- "${@:1:$#-1}" "${@: -1}" && cd -- "${@: -1}"; }
+mkcd()  { mkdir -p -- "$1" && cd -- "$1"; }
+backup(){ cp -- "$1"{,.bak}; }
+calc()  { printf "%s\n" "$@" | bc -l; }
+
+o() { command xdg-open "$@" & disown; }
+
+rtfm() {
+  $@ --help 2>/dev/null || man $@ 2>/dev/null \
+    || xdg-open "http://www.google.com/search?q=$@"
+}
+
+mvrnm() {
+  local filedir
+  filedir=$(dirname "$1")
+  mv "$1" "$filedir/$2"
+}
+
+ex() {
+  if [ -f "$1" ]; then
+    case "$1" in
+      *.tar.bz2) tar xvjf "$1"   ;;
+      *.tar.gz)  tar xvzf "$1"   ;;
+      *.bz2)     bunzip2 "$1"    ;;
+      *.rar)     unrar x "$1"    ;;
+      *.gz)      gunzip "$1"     ;;
+      *.tar)     tar xvf "$1"    ;;
+      *.tbz2)    tar xvjf "$1"   ;;
+      *.tgz)     tar xvzf "$1"   ;;
+      *.zip)     unzip "$1"      ;;
+      *.Z)       uncompress "$1" ;;
+      *.7z)      7z x "$1"       ;;
+      *)         echo "Don't know how to extract '$1'" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+up() {
+  local d="" limit="${1:-1}"
+  [ "$limit" -le 0 ] && limit=1
+  for ((i=1; i<=limit; i++)); do d="../$d"; done
+  cd "$d" || echo "Can't move up $limit directories"
+}
+
+epoch() {
+  if [ $# -eq 0 ]; then date +%s
+  else date -d @"$@" -R
+  fi
+}
+
+nm-restart() { nmcli conn down "$1"; nmcli conn up "$1"; }

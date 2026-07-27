@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Refuse to commit unencrypted secrets. (Full decrypt check: `debinfra secrets check`.)
+status=0
+for f in $(git diff --cached --name-only | grep '^secrets/.*\.sops\.yaml$'); do
+  if ! git show ":$f" | grep -q 'ENC\[' || ! git show ":$f" | grep -q '^sops:'; then
+    echo "BLOCKED: $f is not sops-encrypted" >&2
+    status=1
+  fi
+done
+exit $status

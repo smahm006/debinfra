@@ -1,0 +1,48 @@
+# Matches the old hand-rolled PS1:
+# ┌─ 14:23 user@host: ~/path
+# └─╼>>
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# hostname only appears over ssh (module has ssh_only=true; the (@...) group
+# collapses when the module is empty)
+format = """
+[┌─](white) $time$username(@$hostname)$git_branch$python $directory
+[└─╼](white)$character"""
+
+add_newline = false
+
+[time]
+disabled = false
+format = "[$time]($style) "
+time_format = "%H:%M"
+style = "bold blue"
+
+[username]
+show_always = true
+format = "[$user]($style)"
+style_user = "bold {{ host_color }}"
+style_root = "bold red"
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style)"
+style = "bold {{ host_color }}"
+
+[directory]
+format = "[$path]($style)[$read_only]($style)"
+style = "bold blue"
+truncation_length = 0
+truncate_to_repo = false
+
+[git_branch]
+format = "[:](white)[$branch]($style)"
+style = "bold #cba6f7"
+
+[character]
+format = "$symbol "
+success_symbol = "[>>](bold green)"
+error_symbol = "[>>](bold red)"
+
+[python]
+format = '[(:$virtualenv)]($style) '
+style = "white bold"

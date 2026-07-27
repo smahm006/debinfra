@@ -1,0 +1,77 @@
+# -- XDG base (repeated from profile.d for non-login shells) -----------------
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_BIN_HOME="$HOME/.local/bin"
+
+# -- XDG config overrides ----------------------------------------------------
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export VIMINIT="set nocp | source $XDG_CONFIG_HOME/vim/vimrc"
+
+# -- XDG data overrides ------------------------------------------------------
+export ANSIBLE_HOME="$XDG_DATA_HOME/ansible"
+export PYTHONUSERBASE="$XDG_DATA_HOME/python"
+
+# -- XDG state overrides -----------------------------------------------------
+export LESSHISTFILE="$XDG_STATE_HOME/less/history"
+export PYTHON_HISTORY="$XDG_STATE_HOME/python/history"
+export NODE_REPL_HISTORY="$XDG_STATE_HOME/node/repl_history"
+
+# -- XDG cache overrides -----------------------------------------------------
+export PYTHONPYCACHEPREFIX="$XDG_CACHE_HOME/python"
+
+# -- Workspace ----------------------------------------------------------------
+export LAB_HOME="$HOME/lab"
+export RESOURCES_HOME="$LAB/resources"
+export PROJECTS_HOME="$LAB/projects"
+export APPLICATIONS_HOME="$HOME/apps"
+
+# -- Toolchains ---------------------------------------------------------------
+export GOROOT="$LAB_HOME/toolchains/go/sdk"
+export GOPATH="$LAB_HOME/toolchains/go/path"
+export CARGO_HOME="$LAB_HOME/toolchains/rust/.cargo"
+export RUSTUP_HOME="$LAB_HOME/toolchains/rust/.rustup"
+export ZIG_HOME="$LAB_HOME/toolchains/zig"
+
+# -- Shell --------------------------------------------------------------------
+export HISTCONTROL="ignorespace"
+export HISTFILESIZE="10000"
+export HISTSIZE="${HISTFILESIZE}"
+# emacsclient talks to the emacs daemon (systemd user unit); empty
+# ALTERNATE_EDITOR makes it spawn the daemon if it is not up yet
+if command -v emacsclient > /dev/null; then
+  export EDITOR="emacsclient -t"
+  export VISUAL="emacsclient -c"
+  export ALTERNATE_EDITOR=""
+else
+  export EDITOR="vim"
+  export VISUAL="vim"
+fi
+
+# -- AI Agents ----------------------------------------------------------------
+export CODEX_HOME="$XDG_CONFIG_HOME/codex"
+export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
+
+# -- Misc ---------------------------------------------------------------------
+export KUBECONFIG="$XDG_CONFIG_HOME/kube/config"
+export REDOCLY_TELEMETRY=off
+
+# -- PATH ---------------------------------------------------------------------
+export PATH="\
+/bin:\
+/sbin:\
+/usr/bin:\
+/usr/sbin:\
+/usr/local/bin:\
+/usr/local/sbin:\
+$XDG_BIN_HOME:\
+$XDG_DATA_HOME/npm/bin:\
+$PYTHONUSERBASE/bin:\
+$GOROOT/bin:\
+$GOPATH/bin:\
+$CARGO_HOME/bin:\
+$ZIG_HOME"
